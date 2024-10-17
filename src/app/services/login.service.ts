@@ -1,43 +1,62 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { StorageService } from './storage.service';
+import { UserService } from './user.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  users: User[] = [new User('admin', 'asdf1')];
+  loggedUser: User | null = null;
+  isLogged: boolean = false;
 
-  constructor() {}
+  private readonly logged_user_key = 'logged_user';
 
-  validateLogin(username: string, password: string): boolean {
-    console.log('[LoginService] => validateLogin');
+  constructor(
+    private readonly storageService: StorageService,
+    private readonly userService: UserService
+  ) {}
 
-    /*
-    forma:1
-    for (let index = 0; index < this.users.length; index++) {
-      const u = this.users[index];
-      if (u.username === username) {
-        console.log("[LoginService] => Usuario encontrado")
-        return u.password === password
+  async authenticate(u: string, p: string): Promise<User | null> {
+    const founds = await firstValueFrom(this.userService.findUserByUsername(u));
+
+    if (founds.length > 0) {
+      const found = founds[0];
+      console.log('It found user: ', found.username);
+      const matchPwd = found.password === p;
+      if (matchPwd) {
+        this.loggedUser = found;
+        this.isLogged = true;
+        await this.storageService.set(this.logged_user_key, this.loggedUser);
       }
-    }*/
-
-    /*
-    forma:2
-    const found = this.users.find(u => u.username === username)
-    if (found !== undefined) {
-      console.log("[LoginService] => Usuario encontrado (.find)")
-      return found.password === password
+      return found;
     }
-    
-    console.log("[LoginService] => Usuario no encontrado")
-    return false;*/
+    console.log("It didn't find user", u);
+    return null;
+  }
 
-    //forma 3
-    return (
-      this.users.find(
-        (u) => u.username === username && u.password === password
-      ) !== undefined
-    );
+  async isAuthenticated() {
+    console.log(this.loggedUser);
+    console.log(this.isLogged);
+    const userInMemory = this.loggedUser !== null;
+    console.log('user exist: ' + userInMemory);
+    if (!userInMemory) {
+      const user = await this.storageService.get(this.logged_user_key);
+      if (user) {
+        console.log('LoginService found user in storage');
+        this.isLogged = true;
+        this.loggedUser = user;
+      }
+    }
+    return this.isLogged;
+  }
+
+  async logout() {
+    this.loggedUser = null;
+    this.isLogged = false;
+    return this.storageService
+      .remove(this.logged_user_key)
+      .then(() => console.log('User removed from storage'));
   }
 }
