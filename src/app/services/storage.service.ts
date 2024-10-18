@@ -1,13 +1,13 @@
-import {Injectable, OnInit} from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
   private _storage: Storage | null = null;
 
-  constructor(private readonly storage: Storage) { }
+  constructor(private readonly storage: Storage) {}
 
   async init(): Promise<void> {
     await this.initializeStorage();

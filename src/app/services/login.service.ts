@@ -31,7 +31,7 @@ export class LoginService {
         await this.storageService.set(this.logged_user_key, this.loggedUser);
       }
       return found;
-    }
+    } 
     console.log("It didn't find user", u);
     return null;
   }

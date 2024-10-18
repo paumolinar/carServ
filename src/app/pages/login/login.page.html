@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="ion-text-center ion-no-border">
   <ion-toolbar>
     <ion-title>
-      <h1>Actividad 2.1.4</h1>
+      <h1>Inicio de Sesión</h1>
     </ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/home']">
@@ -15,9 +15,6 @@
   <ion-header class="ion-text-center ion-no-border">
     <br />
     <br />
-    <ion-toolbar>
-      <ion-title size="large">{{ message }}</ion-title>
-    </ion-toolbar>
   </ion-header>
   <ion-list>
     <ion-item>
@@ -36,14 +33,11 @@
       ></ion-input>
     </ion-item>
   </ion-list>
-  
+
   <ion-button expand="block" (click)="validateLogin()"> Ingresar </ion-button>
-  
-  <div class="ion-text-center">
-    <a class="a-link">Crea tu cuenta gratis</a>
-  </div>
-  
+  <ion-button expand="block" (click)="checkData()"> Check Data </ion-button>
+
   <br />
-  
+
   <ion-button [routerLink]="['/home']">Ir a Home</ion-button>
 </ion-content>

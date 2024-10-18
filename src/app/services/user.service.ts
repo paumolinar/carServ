@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../models/user";
+import { StorageService } from './storage.service';
+import { USER_KEY } from '../constants/storage_keys';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,7 @@ export class UserService {
   usersUrl = 'http://localhost:3000/users';
 
   constructor(
+    private readonly storageService: StorageService,
     private readonly http: HttpClient,
   ) { }
 
@@ -21,11 +24,12 @@ export class UserService {
   }
 
   createUser(user: User) {
-    return this.http.post(this.usersUrl, user);
+   console.log(user)
+   this.storageService.set(USER_KEY, user)
   }
 
   updateUser(user: User) {
-    return this.http.put(`${this.usersUrl}/${user.id}`, user);
+    return this.http.put(`${this.usersUrl}/${user}`, user);
   }
 
   deleteUser(id: number) {

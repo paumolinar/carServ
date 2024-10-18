@@ -3,6 +3,8 @@ import { LoginService } from 'src/app/services/login.service';
 import {User} from "../../models/user";
 import {ToastController} from "@ionic/angular";
 import {Router} from "@angular/router";
+import { StorageService } from 'src/app/services/storage.service';
+import { USER_KEY } from 'src/app/constants/storage_keys';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +19,17 @@ export class LoginPage {
   constructor(
     private readonly toastController: ToastController,
     private readonly router: Router,
-    private readonly loginService: LoginService
+    private readonly loginService: LoginService,
+    private readonly storageService: StorageService
   ) {
     this.message = 'Bienvenido!'
+  }
+
+  async checkData(){
+    console.log('check data')
+    const user = await this.storageService.get(USER_KEY)
+    console.log('userFromStorage')
+    console.log(user)
   }
 
   validateLogin(){

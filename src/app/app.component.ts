@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { StorageService } from './services/storage.service';
+//import { StorageService } from './services/storage.service';
 import { Platform } from '@ionic/angular';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { Platform } from '@ionic/angular';
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private storageService: StorageService
+    private userService: UserService
+    //private storageService: StorageService
   ) {
     this.initializeApp();
   }
@@ -18,7 +20,9 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then((ready) => {
       console.log("Platform ready: ", ready);
-      this.storageService.init();
+      //this.storageService.init();
+      console.log('create users')
+      this.userService.createUser({username: 'admin', password: 'asdf1'})
     });
   }
 }
