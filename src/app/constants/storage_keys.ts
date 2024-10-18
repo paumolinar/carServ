@@ -1,2 +1,2 @@
 
-export const USER_KEY = 'user_key';
+export const USERS_KEY = 'users_key';

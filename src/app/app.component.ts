@@ -18,11 +18,13 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.platform.ready().then((ready) => {
+    this.platform.ready().then(async (ready) => {
       console.log("Platform ready: ", ready);
       //this.storageService.init();
-      console.log('create users')
-      this.userService.createUser({username: 'admin', password: 'asdf1'})
+      //console.log('create users')
+      await this.userService.initUsers();
+      await this.userService.createUser({username: 'admin', password: 'asdf1'})
+      await this.userService.createUser({username: 'user2', password: 'asdf1'})
     });
   }
 }

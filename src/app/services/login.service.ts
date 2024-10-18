@@ -19,7 +19,7 @@ export class LoginService {
   ) {}
 
   async authenticate(u: string, p: string): Promise<User | null> {
-    const founds = await firstValueFrom(this.userService.findUserByUsername(u));
+    const founds = await this.userService.findUserByUsername(u);
 
     if (founds.length > 0) {
       const found = founds[0];
