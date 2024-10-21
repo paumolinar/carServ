@@ -2,15 +2,11 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
-import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  loggedUser: User | null = null;
-  isLogged: boolean = false;
-
   private readonly logged_user_key = 'logged_user';
 
   constructor(
@@ -25,37 +21,24 @@ export class LoginService {
       console.log('It found user: ', found.username);
       const matchPwd = found.password === p;
       if (matchPwd) {
-        this.loggedUser = found;
-        this.isLogged = true;
-        await this.storageService.set(this.logged_user_key, this.loggedUser);
+        await this.storageService.set(this.logged_user_key, found);
+        return found;
       }
-      return found;
-    } 
+    }
     console.log("It didn't find user", u);
     return null;
   }
 
-  async isAuthenticated() {
-    console.log(this.loggedUser);
-    console.log(this.isLogged);
-    const userInMemory = this.loggedUser !== null;
-    console.log('user exist: ' + userInMemory);
-    if (!userInMemory) {
-      const user = await this.storageService.get(this.logged_user_key);
-      if (user) {
-        console.log('LoginService found user in storage');
-        this.isLogged = true;
-        this.loggedUser = user;
-      }
+  async isAuthenticated(): Promise<Boolean> {
+    const loggedUser = await this.storageService.get(this.logged_user_key);
+    if (loggedUser) {
+      return true;
+    } else {
+      return false;
     }
-    return this.isLogged;
   }
 
-  async logout() {
-    this.loggedUser = null;
-    this.isLogged = false;
-    return this.storageService
-      .remove(this.logged_user_key)
-      .then(() => console.log('User removed from storage'));
+  async logout(): Promise<void> {
+    await this.storageService.remove(this.logged_user_key);
   }
 }
