@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LOGGED_USER_KEY } from 'src/app/constants/storage_keys';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  username: string = 'guest';
 
-  username: string = 'guest'
+  constructor(
+    private router: Router,
+    private readonly storageService: StorageService
+  ) {}
 
-
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    console.log('ngOnInit')
-    //obtener el username del storage
-    // almacenar el valor de username en el nombre de usuario
+  async ngOnInit() {
+    console.log('ngOnInit');
+    const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
+    this.username = loggedUser.username;
   }
 
   goToLogin() {

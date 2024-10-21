@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
+import { LOGGED_USER_KEY } from '../constants/storage_keys';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private readonly logged_user_key = 'logged_user';
 
   constructor(
     private readonly storageService: StorageService,
@@ -21,7 +21,7 @@ export class LoginService {
       console.log('It found user: ', found.username);
       const matchPwd = found.password === p;
       if (matchPwd) {
-        await this.storageService.set(this.logged_user_key, found);
+        await this.storageService.set(LOGGED_USER_KEY, found);
         return found;
       }
     }
@@ -30,7 +30,7 @@ export class LoginService {
   }
 
   async isAuthenticated(): Promise<Boolean> {
-    const loggedUser = await this.storageService.get(this.logged_user_key);
+    const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     if (loggedUser) {
       return true;
     } else {
@@ -39,6 +39,6 @@ export class LoginService {
   }
 
   async logout(): Promise<void> {
-    await this.storageService.remove(this.logged_user_key);
+    await this.storageService.remove(LOGGED_USER_KEY);
   }
 }
