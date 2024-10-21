@@ -19,10 +19,9 @@ export class LoginService {
   ) {}
 
   async authenticate(u: string, p: string): Promise<User | null> {
-    const founds = await this.userService.findUserByUsername(u);
+    const found = await this.userService.findUserByUsername(u);
 
-    if (founds.length > 0) {
-      const found = founds[0];
+    if (found) {
       console.log('It found user: ', found.username);
       const matchPwd = found.password === p;
       if (matchPwd) {

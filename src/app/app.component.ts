@@ -24,7 +24,7 @@ export class AppComponent {
       //console.log('create users')
       await this.userService.initUsers();
       await this.userService.createUser({username: 'admin', password: 'asdf1'})
-      await this.userService.createUser({username: 'user2', password: 'asdf1'})
+      await this.userService.createUser({username: 'user2', password: 'asdf2'})
     });
   }
 }

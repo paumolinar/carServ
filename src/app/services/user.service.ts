@@ -49,7 +49,13 @@ export class UserService {
     return this.http.get<User[]>(`${this.usersUrl}?${fieldname}=${value}`);
   }
 
-  async findUserByUsername(username: string) {
-    return [{ username: 'admin', password: 'asdf1' }];
+  async findUserByUsername(username: string): Promise<User | null> {
+    const usersList = await this.getUsers();
+    for (const user of usersList) {
+      if (user.username == username) {
+        return user;
+      }
+    }
+    return null;
   }
 }
