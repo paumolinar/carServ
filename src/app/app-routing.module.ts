@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { LoginPage } from './pages/login/login.page';
+
 
 const routes: Routes = [
   {
@@ -24,6 +24,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'create-ride',
+    loadChildren: () => import('./pages/create-ride/create-ride.module').then( m => m.CreateRidePageModule)
   },
 ];
 
