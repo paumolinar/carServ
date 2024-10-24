@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'create-ride',
     loadChildren: () => import('./pages/create-ride/create-ride.module').then( m => m.CreateRidePageModule)
   },
+  {
+    path: 'rides-list',
+    loadChildren: () => import('./pages/rides-list/rides-list.module').then( m => m.RidesListPageModule)
+  },
 ];
 
 @NgModule({
