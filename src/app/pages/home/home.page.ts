@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 import { LOGGED_USER_KEY } from 'src/app/constants/storage_keys';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -8,7 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements ViewWillEnter {
   username: string = 'guest';
 
   constructor(
@@ -16,7 +17,7 @@ export class HomePage {
     private readonly storageService: StorageService
   ) {}
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     console.log('ngOnInit');
     const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     this.username = loggedUser.username;

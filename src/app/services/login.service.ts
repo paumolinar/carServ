@@ -21,6 +21,7 @@ export class LoginService {
       console.log('It found user: ', found.username);
       const matchPwd = found.password === p;
       if (matchPwd) {
+        console.log('Itmatches');
         await this.storageService.set(LOGGED_USER_KEY, found);
         return found;
       }

@@ -27,7 +27,43 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-  
+
 <ion-content [fullscreen]="true" id="createride-content">
-  <h1>Formulario</h1>
+  <ion-header class="ion-text-center ion-no-border">
+    <br />
+    <br />
+  </ion-header>
+  <ion-list>
+    <ion-item>
+      <p>Fecha y hora de salida</p>
+    </ion-item>
+    <ion-item>
+      <ion-datetime [(ngModel)]="dateTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="seatsAvailable"
+        label="Asientos disponibles"
+        labelPlacement="floating"
+        type="number"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="price"
+        label="Precio por persona"
+        labelPlacement="floating"
+        type="number"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="location"
+        label="Lugar de encuentro"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block"(click)="onSubmit()"> Crear viaje </ion-button>
+  <ion-button expand="block"(click)="checkData()"> Check data </ion-button>
 </ion-content>
