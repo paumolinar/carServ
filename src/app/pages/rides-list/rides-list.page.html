@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button auto-hide="false" menu="menu-ride"></ion-menu-button>
+      <ion-menu-button auto-hide="false" menu="menu-ridelist"></ion-menu-button>
     </ion-buttons>
     <ion-title>Viajes Disponibles</ion-title>
     <ion-buttons slot="end">
@@ -12,7 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-menu menuId="menu-ride" contentId="main-content">
+<ion-menu menuId="menu-ridelist" contentId="main-content">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menú</ion-title>
@@ -21,6 +21,7 @@
   <ion-content>
     <ion-list>
       <ion-item routerLink="/home">Ir a Home</ion-item>
+      <ion-item routerLink="/create-ride">Programar nuevo viaje</ion-item>
       <ion-item routerLink="/rides-list">Viajes Disponibles</ion-item>
       <ion-item routerLink="/page3">Mi viaje</ion-item>
       <ion-item routerLink="/page3">Cerrar Sesión</ion-item>
@@ -29,5 +30,14 @@
 </ion-menu>
 
 <ion-content [fullscreen]="true" id="main-content">
- 
+  <ion-list>
+    <ion-item *ngFor="let ride of rides">
+      <ion-label>
+        <h2>Fecha y hora: {{ride.dateTime | date: 'short' }}</h2>
+        <p>Asientos disponibles: {{ride.seatsAvailable}}</p>
+        <p>Precio: {{ride.price}}</p>
+        <p>Lugar de encuentro: {{ride.location}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

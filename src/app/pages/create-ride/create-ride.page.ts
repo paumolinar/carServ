@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RIDE_KEY } from 'src/app/constants/storage_keys';
+import { RIDES_KEY } from 'src/app/constants/storage_keys';
+import { RideService } from 'src/app/services/ride.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -13,7 +14,10 @@ export class CreateRidePage {
   price?: number;
   location?: string;
 
-  constructor(private readonly storageService: StorageService) {}
+  constructor(
+    private readonly storageService: StorageService,
+    private readonly rideService: RideService
+  ) {}
 
   async onSubmit() {
     console.log(this.dateTime, this.seatsAvailable, this.price, this.location);
@@ -23,11 +27,11 @@ export class CreateRidePage {
       price: this.price,
       location: this.location,
     };
-    await this.storageService.set(RIDE_KEY, ride);
+    await this.rideService.createRide(ride);
   }
 
   async checkData() {
-    const rideFromStorage = await this.storageService.get(RIDE_KEY);
+    const rideFromStorage = await this.storageService.get(RIDES_KEY);
     console.log(rideFromStorage);
   }
 }

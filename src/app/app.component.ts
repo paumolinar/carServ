@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-//import { StorageService } from './services/storage.service';
 import { Platform } from '@ionic/angular';
 import { UserService } from './services/user.service';
+import { RideService } from './services/ride.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -11,8 +13,8 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private userService: UserService
-    //private storageService: StorageService
+    private userService: UserService,
+    private rideService: RideService
   ) {
     this.initializeApp();
   }
@@ -25,6 +27,7 @@ export class AppComponent {
       await this.userService.initUsers();
       await this.userService.createUser({username: 'admin', password: 'asdf1'})
       await this.userService.createUser({username: 'user2', password: 'asdf2'})
+      await this.rideService.initRides();
     });
   }
 }
