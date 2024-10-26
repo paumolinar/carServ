@@ -12,22 +12,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-menu menuId="menu-ridelist" contentId="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menú</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item routerLink="/home">Ir a Home</ion-item>
-      <ion-item routerLink="/create-ride">Programar nuevo viaje</ion-item>
-      <ion-item routerLink="/rides-list">Viajes Disponibles</ion-item>
-      <ion-item routerLink="/page3">Mi viaje</ion-item>
-      <ion-item routerLink="/page3">Cerrar Sesión</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
+<app-menu [menuId]="'menu-ridelist'"></app-menu>
 
 <ion-content [fullscreen]="true" id="main-content">
   <ion-list>

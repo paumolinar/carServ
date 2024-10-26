@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'rides-list',
     loadChildren: () => import('./pages/rides-list/rides-list.module').then( m => m.RidesListPageModule)
   },
+  {
+    path: 'add-balance',
+    loadChildren: () => import('./pages/add-balance/add-balance.module').then( m => m.AddBalancePageModule)
+  },
 ];
 
 @NgModule({

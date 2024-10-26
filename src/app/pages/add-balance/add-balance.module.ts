@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CreateRidePageRoutingModule } from './create-ride-routing.module';
+import { AddBalancePageRoutingModule } from './add-balance-routing.module';
 
-import { CreateRidePage } from './create-ride.page';
+import { AddBalancePage } from './add-balance.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateRidePageRoutingModule,
+    AddBalancePageRoutingModule,
     SharedModule
   ],
-  declarations: [CreateRidePage]
+  declarations: [AddBalancePage]
 })
-export class CreateRidePageModule {}
+export class AddBalancePageModule {}

@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" menu="menu-balance"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agregar saldo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/home']">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<app-menu [menuId]="'menu-balance'"></app-menu>
+
+<ion-content [fullscreen]="true" id="main-content">
+  
+</ion-content>
