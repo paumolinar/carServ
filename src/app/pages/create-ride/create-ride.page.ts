@@ -21,12 +21,22 @@ export class CreateRidePage {
 
   async onSubmit() {
     console.log(this.dateTime, this.seatsAvailable, this.price, this.location);
+    if (
+      !this.dateTime ||
+      !this.seatsAvailable ||
+      !this.price ||
+      !this.location
+    ) {
+      console.log('Invalid input');
+      return;
+    }
     const ride = {
       dateTime: this.dateTime,
       seatsAvailable: this.seatsAvailable,
       price: this.price,
       location: this.location,
     };
+
     await this.rideService.createRide(ride);
   }
 
