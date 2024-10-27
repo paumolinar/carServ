@@ -11,6 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HomePage implements ViewWillEnter {
   username: string = 'guest';
+  balance: number = 0;
 
   constructor(
     private router: Router,
@@ -21,6 +22,8 @@ export class HomePage implements ViewWillEnter {
     console.log('ngOnInit');
     const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     this.username = loggedUser.username;
+    this.balance = loggedUser.balance;
+    console.log('loggedUser:', loggedUser)
   }
 
   goToLogin() {

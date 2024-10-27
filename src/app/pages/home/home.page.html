@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button auto-hide="false" menu="menu-home"></ion-menu-button>
+      <ion-menu-button auto-hide="true" menu="menu-home"></ion-menu-button>
     </ion-buttons>
 
     <ion-title class="ion-text-center">TeLlevoApp</ion-title>
@@ -16,9 +16,5 @@
   <ion-button expand="full" color="primary" (click)="goToLogin()">
     Ir a Login
   </ion-button>
-</ion-content>
-
-
-<ion-content>
-
+  <p>Saldo: ${{ balance }}</p>
 </ion-content>

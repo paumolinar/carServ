@@ -22,7 +22,7 @@ export class LoginService {
       const matchPwd = found.password === p;
       if (matchPwd) {
         console.log('Itmatches');
-        await this.storageService.set(LOGGED_USER_KEY, found);
+        await this.userService.setLoggedUser(found);
         return found;
       }
     }

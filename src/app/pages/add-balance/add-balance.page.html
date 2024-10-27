@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button auto-hide="false" menu="menu-balance"></ion-menu-button>
+      <ion-menu-button auto-hide="true" menu="menu-balance"></ion-menu-button>
     </ion-buttons>
     <ion-title>Agregar saldo</ion-title>
     <ion-buttons slot="end">
@@ -14,6 +14,21 @@
 
 <app-menu [menuId]="'menu-balance'"></app-menu>
 
-<ion-content [fullscreen]="true" id="main-content">
-  
+<ion-content [fullscreen]="true" class="ion-padding" id="main-content">
+  <ion-list>
+    <h2>Ingrese el monto que desea agregar:</h2>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="inputBalance"
+        labelPlacement="floating"
+        fill="outline"
+        placeholder="Ingrese monto"
+        type="number"
+      ></ion-input>
+    </ion-item>
+    <br>
+    <ion-button expand="block" (click)="addBalance()">
+      Agregar saldo
+    </ion-button>
+  </ion-list>
 </ion-content>
