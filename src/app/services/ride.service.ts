@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { RIDES_KEY } from '../constants/storage_keys';
+import { RIDES_KEY } from '../constants/storage-keys';
 import { InputRide, Ride } from '../models/ride';
 
 @Injectable({

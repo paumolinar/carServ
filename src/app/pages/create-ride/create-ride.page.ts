@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RIDES_KEY } from 'src/app/constants/storage_keys';
+import { RIDES_KEY } from 'src/app/constants/storage-keys';
 import { RideService } from 'src/app/services/ride.service';
 import { StorageService } from 'src/app/services/storage.service';
 

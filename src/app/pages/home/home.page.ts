@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
-import { LOGGED_USER_KEY } from 'src/app/constants/storage_keys';
+import { LOGGED_USER_KEY } from 'src/app/constants/storage-keys';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class HomePage implements ViewWillEnter {
     const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     this.username = loggedUser.username;
     this.balance = loggedUser.balance;
-    console.log('loggedUser:', loggedUser)
+    console.log('loggedUser:', loggedUser);
   }
 
   goToLogin() {

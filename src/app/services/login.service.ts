@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
-import { LOGGED_USER_KEY } from '../constants/storage_keys';
+import { LOGGED_USER_KEY } from '../constants/storage-keys';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-
   constructor(
     private readonly storageService: StorageService,
     private readonly userService: UserService

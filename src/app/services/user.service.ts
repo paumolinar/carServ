@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InputUser, User } from '../models/user';
 import { StorageService } from './storage.service';
-import { LOGGED_USER_KEY, USERS_KEY } from '../constants/storage_keys';
+import { LOGGED_USER_KEY, USERS_KEY } from '../constants/storage-keys';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LOGGED_USER_KEY } from 'src/app/constants/storage-keys';
 import { Ride } from 'src/app/models/ride';
 import { RideService } from 'src/app/services/ride.service';
+
+import { StorageService } from 'src/app/services/storage.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-rides-list',
@@ -10,24 +14,41 @@ import { RideService } from 'src/app/services/ride.service';
 export class RidesListPage {
   rides: Ride[] = [];
 
+  constructor(
+    private readonly rideService: RideService,
+    private readonly storageService: StorageService,
+    private readonly userService: UserService
+  ) {}
+
   async ionViewWillEnter() {
-    console.log('ngOnInit');
-    const rides = await this.rideService.getRides();
-    console.log('ride traido del storage:');
-    console.log(rides);
-    this.rides = rides;
+    this.rides = await this.rideService.getRides();
+    console.log('rides:', this.rides);
   }
 
   async joinRide(ride: Ride) {
-    console.log('join ride', ride);
-    if (ride.seatsAvailable > 0) {
-      ride.seatsAvailable -= 1;
-      console.log('asientos disp:', ride.seatsAvailable);
-      await this.rideService.updateRide(ride);
-    }else {
-      console.log('No seats available')
-    }
-  }
+    console.log('joinRide', ride);
 
-  constructor(private readonly rideService: RideService) {}
+    if (ride.seatsAvailable <= 0) {
+      console.log('No available seats!');
+      return;
+    }
+
+    const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
+
+    if (!loggedUser) {
+      console.log('User not logged in!');
+      return;
+    }
+
+    if (loggedUser.balance < ride.price) {
+      console.log('Insufficient balance!');
+      return;
+    }
+
+    ride.seatsAvailable -= 1;
+    loggedUser.balance -= ride.price;
+    await this.userService.updateUser(loggedUser);
+
+    await this.rideService.updateRide(ride);
+  }
 }
