@@ -30,7 +30,7 @@ export class LoginService {
     return null;
   }
 
-  async isAuthenticated(): Promise<Boolean> {
+  async isAuthenticated(): Promise<boolean> {
     const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     if (loggedUser) {
       return true;
