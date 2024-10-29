@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from './guards/authentication.guards';
-
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -32,17 +32,30 @@ const routes: Routes = [
   {
     path: 'create-ride',
     canActivate: [AuthenticationGuard],
-    loadChildren: () => import('./pages/create-ride/create-ride.module').then( m => m.CreateRidePageModule)
+    loadChildren: () =>
+      import('./pages/create-ride/create-ride.module').then(
+        (m) => m.CreateRidePageModule
+      ),
   },
   {
     path: 'rides-list',
     canActivate: [AuthenticationGuard],
-    loadChildren: () => import('./pages/rides-list/rides-list.module').then( m => m.RidesListPageModule)
+    loadChildren: () =>
+      import('./pages/rides-list/rides-list.module').then(
+        (m) => m.RidesListPageModule
+      ),
   },
   {
     path: 'add-balance',
     canActivate: [AuthenticationGuard],
-    loadChildren: () => import('./pages/add-balance/add-balance.module').then( m => m.AddBalancePageModule)
+    loadChildren: () =>
+      import('./pages/add-balance/add-balance.module').then(
+        (m) => m.AddBalancePageModule
+      ),
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 
