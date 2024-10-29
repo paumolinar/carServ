@@ -12,7 +12,6 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    canActivate: [AuthenticationGuard],
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
