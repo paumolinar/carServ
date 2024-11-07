@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { LOGGED_USER_KEY } from 'src/app/constants/storage-keys';
 import { Ride } from 'src/app/models/ride';
 import { RideService } from 'src/app/services/ride.service';
-
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,7 +17,8 @@ export class RidesListPage {
   constructor(
     private readonly rideService: RideService,
     private readonly storageService: StorageService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private alertController: AlertController
   ) {}
 
   async ionViewWillEnter() {
@@ -30,6 +31,16 @@ export class RidesListPage {
 
     if (ride.seatsAvailable <= 0) {
       console.log('No available seats!');
+      let alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: `No hay asientos disponibles en este ride.`,
+        buttons: [
+          {
+            text: 'Ok',
+          },
+        ],
+      });
+      await alert.present();
       return;
     }
 
@@ -42,6 +53,16 @@ export class RidesListPage {
 
     if (loggedUser.balance < ride.price) {
       console.log('Insufficient balance!');
+      let alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: `Saldo insuficiente.`,
+        buttons: [
+          {
+            text: 'Ok',
+          },
+        ],
+      });
+      await alert.present();
       return;
     }
 
@@ -50,5 +71,16 @@ export class RidesListPage {
     await this.userService.updateUser(loggedUser);
 
     await this.rideService.updateRide(ride);
+
+    let alert = await this.alertController.create({
+      header: 'Mensaje',
+      message: `Te has unido al ride exitosamente.`,
+      buttons: [
+        {
+          text: 'Ok',
+        },
+      ],
+    });
+    await alert.present();
   }
 }
