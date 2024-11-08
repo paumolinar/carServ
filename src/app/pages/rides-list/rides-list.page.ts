@@ -45,6 +45,7 @@ export class RidesListPage {
     }
 
     const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
+    console.log('valor boolean antes', loggedUser.isInRide);
 
     if (!loggedUser) {
       console.log('User not logged in!');
@@ -66,11 +67,29 @@ export class RidesListPage {
       return;
     }
 
+    if (loggedUser.isInRide === true) {
+      let alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: `Ya eres parte de un ride, no puede unirse a más de un ride a la vez.`,
+        buttons: [
+          {
+            text: 'Ok',
+          },
+        ],
+      });
+      await alert.present();
+      return;
+    }
+
+    console.log('uniendose al ride');
     ride.seatsAvailable -= 1;
     loggedUser.balance -= ride.price;
+    loggedUser.isInRide = true;
     await this.userService.updateUser(loggedUser);
 
     await this.rideService.updateRide(ride);
+
+    console.log('valor boolean despues', loggedUser.isInRide);
 
     let alert = await this.alertController.create({
       header: 'Mensaje',
