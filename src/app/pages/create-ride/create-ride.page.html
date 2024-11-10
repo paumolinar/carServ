@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button auto-hide="false" menu="menu-ride"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Programar nuevo viaje</ion-title>
+    <ion-title>Programar nuevo viaje<ion-icon name="navigate-outline"></ion-icon></ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/home']">
         <ion-icon name="arrow-back"></ion-icon>
@@ -22,7 +22,7 @@
   </ion-header>
   <ion-list>
     <ion-item>
-      <p>Fecha y hora de salida</p>
+      <p>Fecha y hora de salida <ion-icon name="calendar-outline"></ion-icon></p>
     </ion-item>
     <ion-item>
       <ion-datetime [(ngModel)]="dateTime"></ion-datetime>
@@ -38,7 +38,7 @@
     <ion-item>
       <ion-input
         [(ngModel)]="price"
-        label="Precio por persona"
+        label="Precio por persona:"
         labelPlacement="floating"
         type="number"
       ></ion-input>
@@ -46,11 +46,11 @@
     <ion-item>
       <ion-input
         [(ngModel)]="location"
-        label="Lugar de encuentro"
-        labelPlacement="floating"
+        label="Lugar de encuentro:" 
+        labelPlacement="floating" 
       ></ion-input>
     </ion-item>
   </ion-list>
-  <ion-button expand="block"(click)="onSubmit()"> Crear viaje </ion-button>
-  <ion-button expand="block"(click)="checkData()"> Check data </ion-button>
+  <ion-button expand="block"(click)="onSubmit()" color="secondary"> Crear viaje <ion-icon name="navigate-circle-outline"></ion-icon> </ion-button>
+  <ion-button expand="block"(click)="checkData()" color="secondary"> Check data <ion-icon name="checkmark-done-outline"></ion-icon> </ion-button>
 </ion-content>

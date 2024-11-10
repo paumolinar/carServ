@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button auto-hide="false" menu="menu-ridelist"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Viajes Disponibles</ion-title>
+    <ion-title>Viajes Disponibles<ion-icon name="today-outline"></ion-icon></ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/home']">
         <ion-icon name="arrow-back"></ion-icon>
@@ -23,7 +23,7 @@
         <p>Precio: {{ride.price}}</p>
         <p>Lugar de encuentro: {{ride.location}}</p>
       </ion-label>
-      <ion-button slot="end" (click)="joinRide(ride)"> Unirse </ion-button>
+      <ion-button color="danger" slot="end" (click)="joinRide(ride)"> Unirse<ion-icon name="add-circle-outline"></ion-icon> </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

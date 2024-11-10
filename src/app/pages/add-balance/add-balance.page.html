@@ -15,8 +15,12 @@
 <app-menu [menuId]="'menu-balance'"></app-menu>
 
 <ion-content [fullscreen]="true" class="ion-padding" id="main-content">
+  <ion-card>
+    <ion-card-content>
+  
   <ion-list>
-    <h2>Ingrese el monto que desea agregar:</h2>
+    <ion-card-title>Ingrese el monto que desea agregar:</ion-card-title>
+    <br>
     <ion-item>
       <ion-input
         [(ngModel)]="inputBalance"
@@ -26,9 +30,11 @@
         type="number"
       ></ion-input>
     </ion-item>
-    <br>
-    <ion-button expand="block" (click)="addBalance()">
-      Agregar saldo
-    </ion-button>
+   
   </ion-list>
+  </ion-card-content>
+</ion-card>
+ <ion-button expand="block" (click)="addBalance()" color="success">
+      Agregar saldo<ion-icon name="cash-outline"></ion-icon>
+    </ion-button>
 </ion-content>

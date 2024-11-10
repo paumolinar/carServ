@@ -54,7 +54,7 @@ export class RidesListPage {
     if (loggedUser.balance < ride.price) {
       console.log('Insufficient balance!');
       let alert = await this.alertController.create({
-        header: 'Mensaje',
+        header: 'Error',
         message: `Saldo insuficiente.`,
         buttons: [
           {
@@ -73,7 +73,7 @@ export class RidesListPage {
     await this.rideService.updateRide(ride);
 
     let alert = await this.alertController.create({
-      header: 'Mensaje',
+      header: 'Listo!',
       message: `Te has unido al ride exitosamente.`,
       buttons: [
         {
