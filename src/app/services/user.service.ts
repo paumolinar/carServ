@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { InputUser, User } from '../models/user';
 import { StorageService } from './storage.service';
 import { LOGGED_USER_KEY, USERS_KEY } from '../constants/storage-keys';
+import { fakeAsync } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,7 @@ export class UserService {
     const users = await this.getUsers();
     users.push({
       balance: 0,
+      isInRide: false,
       ...user,
     });
     await this.setUsers(users);
