@@ -4,22 +4,28 @@
       <ion-menu-button auto-hide="true" menu="menu-home"></ion-menu-button>
     </ion-buttons>
 
-    <ion-title class="ion-text-center">TeLlevoApp <ion-icon name="car-sport-outline"></ion-icon></ion-title>
+    <ion-title class="ion-text-center"
+      >TeLlevoApp <ion-icon name="car-sport-outline"></ion-icon
+    ></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <app-menu [menuId]="'menu-home'"></app-menu>
 
-<ion-content class="ion-padding" id="main-content">
+<ion-content class="ion-padding" id="main-content" [fullscreen]="true">
   <h2 class="ion-text-center">Bienvenido! {{ username }}</h2>
   <h6 class="ion-text-center">Ingrese su usuario aquí:</h6>
   <ion-button expand="full" color="tertiary" (click)="goToLogin()">
     Ir a Login
   </ion-button>
   <p>Saldo: ${{ balance }}</p>
-  
+
   <p>Clima en Santiago <ion-icon name="cloudy-night-outline"></ion-icon>:</p>
   <p>Son las: {{ time }} <ion-icon name="time-outline"></ion-icon></p>
-  <p>Temperatura: <ion-icon name="thermometer-outline"></ion-icon>{{ temperature }}° </p>
+  <p>
+    Temperatura: <ion-icon name="thermometer-outline"></ion-icon>{{ temperature
+    }}°
+  </p>
 
+  <div id="map"></div>
 </ion-content>
