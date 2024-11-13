@@ -23,12 +23,15 @@ export class RideService {
     return await this.storageService.get(RIDES_KEY);
   }
 
-  async createRide(ride: InputRide) {
+  async createRide(input: InputRide) {
     const rides = await this.getRides();
-    rides.push({
+    const newRide: Ride = {
       id: this.lastId,
-      ...ride,
-    });
+      isActive: false,
+      passengerUsernames: [],
+      ...input,
+    }
+    rides.push(newRide);
     this.lastId = this.lastId + 1;
     await this.setRides(rides);
   }

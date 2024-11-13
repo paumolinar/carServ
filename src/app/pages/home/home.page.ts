@@ -12,7 +12,7 @@ import * as L from 'leaflet';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements ViewWillEnter, OnInit {
+export class HomePage implements ViewWillEnter {
   username: string = 'guest';
   balance: number = 0;
   temperature?: number;
@@ -24,29 +24,31 @@ export class HomePage implements ViewWillEnter, OnInit {
     private readonly weatherService: WeatherService
   ) {}
 
-  ngOnInit() {
-    this.initMap();
-  }
-
   private initMap(): void {
     const coord = Geolocation.getCurrentPosition();
-    coord.then(position => {
-      const map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
-  
+    coord.then((position) => {
+      const map = L.map('map').setView(
+        [position.coords.latitude, position.coords.longitude],
+        13
+      );
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      L.marker(new L.LatLng(position.coords.latitude, position.coords.longitude), {
-        icon: L.icon({
-          iconUrl: '/assets/car-icon-vector-illustration.jpg',
-          iconSize: [25, 41]
-        })
-      })
-      .bindPopup('Estás Aquí')
-      .openPopup()
-      .addTo(map);
-
+      L.marker(
+        new L.LatLng(position.coords.latitude, position.coords.longitude),
+        {
+          icon: L.icon({
+            iconUrl: '/assets/car-icon-vector-illustration.jpg',
+            iconSize: [25, 41],
+          }),
+        }
+      )
+        .bindPopup('Estás Aquí')
+        .openPopup()
+        .addTo(map);
     });
   }
 
@@ -60,6 +62,10 @@ export class HomePage implements ViewWillEnter, OnInit {
     const { temperature, time } = await this.weatherService.getWeather();
     this.temperature = temperature;
     this.time = time;
+    console.log('is in ride:', loggedUser.isInRide);
+    if (loggedUser.isInRide === true) {
+      this.initMap();
+    }
   }
 
   goToLogin() {

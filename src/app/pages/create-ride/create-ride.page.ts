@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RIDES_KEY } from 'src/app/constants/storage-keys';
+import { LOGGED_USER_KEY, RIDES_KEY } from 'src/app/constants/storage-keys';
+import { InputRide } from 'src/app/models/ride';
 import { RideService } from 'src/app/services/ride.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -20,6 +21,7 @@ export class CreateRidePage {
   ) {}
 
   async onSubmit() {
+    const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     console.log(this.dateTime, this.seatsAvailable, this.price, this.location);
     if (
       !this.dateTime ||
@@ -30,14 +32,15 @@ export class CreateRidePage {
       console.log('Invalid input');
       return;
     }
-    const ride = {
+    const inputRide: InputRide = {
       dateTime: this.dateTime,
       seatsAvailable: this.seatsAvailable,
       price: this.price,
       location: this.location,
+      driverUsername: loggedUser.driverUsername,
     };
 
-    await this.rideService.createRide(ride);
+    await this.rideService.createRide(inputRide);
   }
 
   async checkData() {
