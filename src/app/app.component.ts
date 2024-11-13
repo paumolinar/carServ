@@ -37,7 +37,7 @@ export class AppComponent {
         seatsAvailable: 4,
         price: 4000,
         location: 'Ñuñoa',
-        driverUsername: 'user1',
+        driverUsername: 'user2',
       });
       await this.rideService.createRide({
         dateTime: '2024-10-26T20:00:00',

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { RIDES_KEY } from '../constants/storage-keys';
 import { InputRide, Ride } from '../models/ride';
+import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,10 @@ import { InputRide, Ride } from '../models/ride';
 export class RideService {
   lastId = 1;
 
-  constructor(private readonly storageService: StorageService) {}
+  constructor(
+    private readonly storageService: StorageService,
+    private readonly userService: UserService
+  ) {}
 
   async initRides() {
     await this.storageService.set(RIDES_KEY, []);
@@ -30,10 +35,18 @@ export class RideService {
       isActive: false,
       passengerUsernames: [],
       ...input,
-    }
+    };
     rides.push(newRide);
     this.lastId = this.lastId + 1;
     await this.setRides(rides);
+    const driver = await this.userService.findUserByUsername(
+      input.driverUsername
+    );
+    if (driver === null) {
+      throw new Error('Driver not found');
+    }
+    driver.isInRide = true;
+    this.userService.updateUser(driver);
   }
 
   async updateRide(ride: Ride) {
