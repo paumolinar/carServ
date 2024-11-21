@@ -21,7 +21,6 @@
         <h2>Fecha y hora: {{ride.dateTime | date: 'short' }}</h2>
         <p>Asientos disponibles: {{ride.seatsAvailable}}</p>
         <p>Precio: {{ride.price}}</p>
-        <p>Lugar de encuentro: {{ride.location}}</p>
       </ion-label>
       <ion-button color="danger" slot="end" (click)="joinRide(ride)"> Unirse<ion-icon name="add-circle-outline"></ion-icon> </ion-button>
     </ion-item>

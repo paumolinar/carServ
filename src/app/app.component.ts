@@ -36,14 +36,12 @@ export class AppComponent {
         dateTime: '2024-10-25T20:00:00',
         seatsAvailable: 4,
         price: 4000,
-        location: 'Ñuñoa',
         driverUsername: 'user2',
       });
       await this.rideService.createRide({
         dateTime: '2024-10-26T20:00:00',
         seatsAvailable: 2,
         price: 3500,
-        location: 'La Florida',
         driverUsername: 'admin',
       });
     });
