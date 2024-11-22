@@ -5,6 +5,7 @@ import { InputRide } from 'src/app/models/ride';
 import { RideService } from 'src/app/services/ride.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Geolocation } from '@capacitor/geolocation';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-ride',
@@ -17,10 +18,15 @@ export class CreateRidePage implements OnInit {
   price?: number;
   markerStartpoint?: L.Marker;
   markerDestination?: L.Marker;
+  startpointLat?: number;
+  startpointLng?: number;
+  destinationLat?: number;
+  destinationLng?: number;
 
   constructor(
     private readonly storageService: StorageService,
-    private readonly rideService: RideService
+    private readonly rideService: RideService,
+    private alertController: AlertController
   ) {}
 
   private initMap(mapId: string): void {
@@ -54,6 +60,9 @@ export class CreateRidePage implements OnInit {
             .bindPopup('Estás Aquí')
             .openPopup()
             .addTo(map);
+
+          this.startpointLat = lat;
+          this.startpointLng = lng;
         }
         if (mapId === 'map_destination') {
           if (this.markerDestination) {
@@ -68,6 +77,9 @@ export class CreateRidePage implements OnInit {
             .bindPopup('Estás Aquí')
             .openPopup()
             .addTo(map);
+
+          this.destinationLat = lat;
+          this.destinationLng = lng;
         }
       });
     });
@@ -80,8 +92,26 @@ export class CreateRidePage implements OnInit {
   async onSubmit() {
     const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
     console.log(this.dateTime, this.seatsAvailable, this.price);
-    if (!this.dateTime || !this.seatsAvailable || !this.price) {
+    if (
+      !this.dateTime ||
+      !this.seatsAvailable ||
+      !this.price ||
+      !this.startpointLat ||
+      !this.startpointLng ||
+      !this.destinationLat ||
+      !this.destinationLng
+    ) {
       console.log('Invalid input');
+      let alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: `Hay uno o más campos vacío/s. Por favor rellene todos los campos solicitados.`,
+        buttons: [
+          {
+            text: 'Ok',
+          },
+        ],
+      });
+      await alert.present();
       return;
     }
     const inputRide: InputRide = {
