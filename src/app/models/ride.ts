@@ -3,6 +3,10 @@ export interface InputRide {
   seatsAvailable: number;
   price: number;
   driverUsername: string;
+  startpointLat: number;
+  startpointLng: number;
+  destinationLat: number;
+  destinationLng: number;
 }
 
 export interface Ride {
@@ -13,4 +17,8 @@ export interface Ride {
   isActive: boolean;
   driverUsername: string;
   passengerUsernames: string[];
+  startpointLat: number;
+  startpointLng: number;
+  destinationLat: number;
+  destinationLng: number;
 }

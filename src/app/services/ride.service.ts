@@ -29,6 +29,8 @@ export class RideService {
   }
 
   async createRide(input: InputRide) {
+    console.log('input recibido:')
+    console.log(input)
     const rides = await this.getRides();
     const newRide: Ride = {
       id: this.lastId,
@@ -42,6 +44,8 @@ export class RideService {
     const driver = await this.userService.findUserByUsername(
       input.driverUsername
     );
+    console.log('driver:')
+    console.log(driver)
     if (driver === null) {
       throw new Error('Driver not found');
     }

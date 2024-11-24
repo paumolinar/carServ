@@ -31,18 +31,31 @@ export class AppComponent {
         username: 'user2',
         password: 'asdf2',
       });
+      await this.userService.createUser({
+        username: 'passenger',
+        password: 'asdf1',
+      });
       await this.rideService.initRides();
       await this.rideService.createRide({
         dateTime: '2024-10-25T20:00:00',
         seatsAvailable: 4,
         price: 4000,
         driverUsername: 'user2',
+        startpointLat:-90.463002931436275, 
+        startpointLng:-88.56057414095131,
+        destinationLat: -33.44863074377262, 
+        destinationLng: -70.58339306240427,
       });
       await this.rideService.createRide({
         dateTime: '2024-10-26T20:00:00',
         seatsAvailable: 2,
         price: 3500,
         driverUsername: 'admin',
+        startpointLat:-33.463009931436275, 
+        startpointLng:-70.56057414065131,
+        destinationLat: -33.44863074367262, 
+        destinationLng: -70.58339306140427,
+
       });
     });
   }

@@ -13,7 +13,6 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { NotFoundError } from 'rxjs';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export function initApp(storageService: StorageService) {

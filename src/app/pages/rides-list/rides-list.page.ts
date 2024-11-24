@@ -5,6 +5,8 @@ import { Ride } from 'src/app/models/ride';
 import { RideService } from 'src/app/services/ride.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
+import { Geolocation } from '@capacitor/geolocation';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-rides-list',
@@ -28,6 +30,19 @@ export class RidesListPage {
 
   async joinRide(ride: Ride) {
     console.log('joinRide', ride);
+    const position = await Geolocation.getCurrentPosition();
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    const positionLatLng = L.latLng(lat, lng);
+
+    const rideLat = ride.startpointLat;
+    const rideLng = ride.startpointLng;
+    const rideInitPostn = L.latLng(rideLat, rideLng);
+
+    const distance = positionLatLng.distanceTo(rideInitPostn);
+
+    const distanceKm = distance / 1000;
+    console.log(`La distancia entre las dos ubicaciones es: ${distanceKm} km`);
 
     if (ride.seatsAvailable <= 0) {
       console.log('No available seats!');
@@ -71,6 +86,20 @@ export class RidesListPage {
       let alert = await this.alertController.create({
         header: 'Mensaje',
         message: `Ya eres parte de un ride, no puede unirse a más de un ride a la vez.`,
+        buttons: [
+          {
+            text: 'Ok',
+          },
+        ],
+      });
+      await alert.present();
+      return;
+    }
+
+    if (distanceKm >= 8) {
+      let alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: `No se ha podido unir al ride porque su ubicación actual está muy lejos del punto de inicio del ride. Escoja un ride diferente más cercano. `,
         buttons: [
           {
             text: 'Ok',

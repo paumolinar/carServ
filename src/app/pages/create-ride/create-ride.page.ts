@@ -6,6 +6,8 @@ import { RideService } from 'src/app/services/ride.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { AlertController } from '@ionic/angular';
+import { User } from 'src/app/models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-ride',
@@ -26,7 +28,8 @@ export class CreateRidePage implements OnInit {
   constructor(
     private readonly storageService: StorageService,
     private readonly rideService: RideService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private readonly router: Router,
   ) {}
 
   private initMap(mapId: string): void {
@@ -90,7 +93,7 @@ export class CreateRidePage implements OnInit {
     this.initMap('map_destination');
   }
   async onSubmit() {
-    const loggedUser = await this.storageService.get(LOGGED_USER_KEY);
+    const loggedUser: User = await this.storageService.get(LOGGED_USER_KEY);
     console.log(this.dateTime, this.seatsAvailable, this.price);
     if (
       !this.dateTime ||
@@ -118,10 +121,15 @@ export class CreateRidePage implements OnInit {
       dateTime: this.dateTime,
       seatsAvailable: this.seatsAvailable,
       price: this.price,
-      driverUsername: loggedUser.driverUsername,
+      driverUsername: loggedUser.username,
+      startpointLat: this.startpointLat,
+      startpointLng: this.startpointLng,
+      destinationLat: this.destinationLat,
+      destinationLng: this.destinationLng
     };
 
     await this.rideService.createRide(inputRide);
+    return this.router.navigateByUrl('/home');
   }
 
   async checkData() {
