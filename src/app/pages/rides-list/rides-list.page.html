@@ -3,7 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button auto-hide="false" menu="menu-ridelist"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Viajes Disponibles<ion-icon name="today-outline"></ion-icon></ion-title>
+    <ion-segment value="default" (ionChange)="segmentChosen($event)">
+      <ion-segment-button value="segment-available">
+        <ion-label>Viajes Disponibles</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="segment-full">
+        <ion-label>Viajes Llenos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/home']">
         <ion-icon name="arrow-back"></ion-icon>
@@ -15,14 +22,27 @@
 <app-menu [menuId]="'menu-ridelist'"></app-menu>
 
 <ion-content [fullscreen]="true" id="main-content">
-  <ion-list>
-    <ion-item *ngFor="let ride of rides">
+  <ion-list *ngIf="selectedSegment === 'segment-available'">
+    <ion-item *ngFor="let ride of availableRides">
       <ion-label>
         <h2>Fecha y hora: {{ride.dateTime | date: 'short' }}</h2>
         <p>Asientos disponibles: {{ride.seatsAvailable}}</p>
         <p>Precio: {{ride.price}}</p>
       </ion-label>
-      <ion-button color="danger" slot="end" (click)="joinRide(ride)"> Unirse<ion-icon name="add-circle-outline"></ion-icon> </ion-button>
+      <ion-button color="danger" slot="end" (click)="joinRide(ride)"
+        >Unirse<ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="selectedSegment === 'segment-full'">
+    <ion-item *ngFor="let ride of fullRides">
+      <ion-label>
+        <h2>Fecha y hora: {{ride.dateTime | date: 'short' }}</h2>
+        <p>Asientos disponibles: {{ride.seatsAvailable}}</p>
+        <p>Precio: {{ride.price}}</p>
+        
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

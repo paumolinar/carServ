@@ -41,9 +41,9 @@ export class AppComponent {
         seatsAvailable: 4,
         price: 4000,
         driverUsername: 'user2',
-        startpointLat:-90.463002931436275, 
-        startpointLng:-88.56057414095131,
-        destinationLat: -33.44863074377262, 
+        startpointLat: -90.463002931436275,
+        startpointLng: -88.56057414095131,
+        destinationLat: -33.44863074377262,
         destinationLng: -70.58339306240427,
       });
       await this.rideService.createRide({
@@ -51,11 +51,20 @@ export class AppComponent {
         seatsAvailable: 2,
         price: 3500,
         driverUsername: 'admin',
-        startpointLat:-33.463009931436275, 
-        startpointLng:-70.56057414065131,
-        destinationLat: -33.44863074367262, 
+        startpointLat: -33.463009931436275,
+        startpointLng: -70.56057414065131,
+        destinationLat: -33.44863074367262,
         destinationLng: -70.58339306140427,
-
+      });
+      await this.rideService.createRide({
+        dateTime: '2024-11-25T20:00:00',
+        seatsAvailable: 0,
+        price: 2000,
+        driverUsername: 'user2',
+        startpointLat: -90.463002931436275,
+        startpointLng: -88.56057414785131,
+        destinationLat: -33.44863904377262,
+        destinationLng: -70.58339226240427,
       });
     });
   }

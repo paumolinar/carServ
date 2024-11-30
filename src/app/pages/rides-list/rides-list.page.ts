@@ -14,7 +14,9 @@ import * as L from 'leaflet';
   styleUrls: ['./rides-list.page.scss'],
 })
 export class RidesListPage {
-  rides: Ride[] = [];
+  availableRides: Ride[] = [];
+  fullRides: Ride[] = [];
+  selectedSegment: string = 'segment-available';
 
   constructor(
     private readonly rideService: RideService,
@@ -24,8 +26,15 @@ export class RidesListPage {
   ) {}
 
   async ionViewWillEnter() {
-    this.rides = await this.rideService.getRides();
-    console.log('rides:', this.rides);
+    const allRides = await this.rideService.getRides();
+    this.availableRides = allRides.filter((ride) => {
+      return ride.seatsAvailable > 0;
+    });
+    this.fullRides = allRides.filter((ride) => {
+      return ride.seatsAvailable === 0;
+    });
+    console.log(' av rides:', this.availableRides);
+    console.log('full rides:', this.fullRides);
   }
 
   async joinRide(ride: Ride) {
@@ -130,5 +139,9 @@ export class RidesListPage {
       ],
     });
     await alert.present();
+  }
+  segmentChosen(e: any) {
+    console.log(e.detail.value);
+    this.selectedSegment = e.detail.value;
   }
 }
