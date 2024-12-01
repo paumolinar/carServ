@@ -52,6 +52,12 @@ const routes: Routes = [
         (m) => m.AddBalancePageModule
       ),
   },
+
+  {
+    path: 'my-ride',
+    loadChildren: () =>
+      import('./pages/my-ride/my-ride.module').then((m) => m.MyRidePageModule),
+  },
   {
     path: '**',
     component: NotFoundComponent,
