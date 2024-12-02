@@ -27,6 +27,7 @@ export class UserService {
     users.push({
       balance: 0,
       isInRide: false,
+      currentRide: undefined,
       ...user,
     });
     await this.setUsers(users);

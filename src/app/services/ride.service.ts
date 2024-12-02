@@ -35,7 +35,6 @@ export class RideService {
     const newRide: Ride = {
       id: this.lastId,
       isActive: false,
-      passengerUsernames: [],
       ...input,
     };
     rides.push(newRide);
@@ -58,5 +57,15 @@ export class RideService {
     const index = rides.findIndex((r) => r.id === ride.id);
     rides[index] = ride;
     await this.setRides(rides);
+  }
+
+  async findRideById(id: number): Promise<Ride | undefined> {
+    const ridesList = await this.getRides();
+    for (const ride of ridesList) {
+      if (ride.id == id) {
+        return ride;
+      }
+    }
+    return undefined;
   }
 }

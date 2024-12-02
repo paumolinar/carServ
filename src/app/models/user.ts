@@ -9,5 +9,6 @@ export interface User {
     password: string;
     balance: number;
     isInRide: boolean;
+    currentRide?: number;
   }
   

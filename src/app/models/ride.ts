@@ -16,7 +16,6 @@ export interface Ride {
   price: number;
   isActive: boolean;
   driverUsername: string;
-  passengerUsernames: string[];
   startpointLat: number;
   startpointLng: number;
   destinationLat: number;

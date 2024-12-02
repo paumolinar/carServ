@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { LOGGED_USER_KEY } from 'src/app/constants/storage-keys';
 import { Ride } from 'src/app/models/ride';
@@ -123,6 +123,7 @@ export class RidesListPage {
     ride.seatsAvailable -= 1;
     loggedUser.balance -= ride.price;
     loggedUser.isInRide = true;
+    loggedUser.currentRide = ride.id;
     await this.userService.updateUser(loggedUser);
 
     await this.rideService.updateRide(ride);
