@@ -17,7 +17,11 @@
 <ion-content [fullscreen]="true" class="ion-padding" id="main-content">
   <ion-header collapse="condense" class="ion-text-center ion-no-border">
   </ion-header>
-  <h2>Detalles de su viaje:</h2>
+  <h2 *ngIf="ride != undefined">Detalles de su viaje:</h2>
+  <p *ngIf="ride === undefined" class="ion-text-center ion-no-border">
+    No eres parte de ningún ride.
+  </p>
+  <ion-button [routerLink]="['/rides-list']"*ngIf="ride === undefined" class="ion-text-center ion-no-border">Unirse a un ride</ion-button>
   <ion-item *ngIf="ride != undefined">
     <ion-label>
       <h2>Ride Id: {{ ride.id }}</h2>
@@ -26,6 +30,8 @@
       <h2>Recorrido:</h2>
     </ion-label>
   </ion-item>
-  <div id="map"></div>
-  <ion-button expand="block" (click)="abandonRide()">Abandonar ride</ion-button>
+  <div id="map" [style.display]="ride !== undefined ? 'block' : 'none'"></div>
+  <ion-button *ngIf="ride != undefined" expand="block" (click)="abandonRideSubmit()"
+    >Abandonar ride</ion-button
+  >
 </ion-content>

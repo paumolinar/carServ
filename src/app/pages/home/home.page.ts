@@ -62,7 +62,7 @@ export class HomePage implements ViewWillEnter {
     const { temperature, time } = await this.weatherService.getWeather();
     this.temperature = temperature;
     this.time = time;
-    console.log('is in ride:', loggedUser.isInRide);
+    console.log('logged user:', loggedUser);
     if (loggedUser.isInRide === true) {
       this.initMap();
     }

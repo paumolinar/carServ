@@ -25,7 +25,7 @@ export class RidesListPage {
     private alertController: AlertController
   ) {}
 
-  async ionViewWillEnter() {
+  async refreshRidesData() {
     const allRides = await this.rideService.getRides();
     this.availableRides = allRides.filter((ride) => {
       return ride.seatsAvailable > 0;
@@ -35,6 +35,10 @@ export class RidesListPage {
     });
     console.log(' av rides:', this.availableRides);
     console.log('full rides:', this.fullRides);
+  }
+
+  async ionViewWillEnter() {
+    await this.refreshRidesData();
   }
 
   async joinRide(ride: Ride) {
@@ -140,7 +144,9 @@ export class RidesListPage {
       ],
     });
     await alert.present();
+    await this.refreshRidesData();
   }
+
   segmentChosen(e: any) {
     console.log(e.detail.value);
     this.selectedSegment = e.detail.value;
