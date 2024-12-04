@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,11 +13,31 @@ export class MenuComponent {
 
   constructor(
     private readonly userService: UserService,
-    private readonly router: Router
+    private readonly router: Router,
+    private alertController: AlertController
   ) {}
 
-  async logout(){
+  async logout() {
     await this.userService.logout();
-    await this.router.navigateByUrl("/login");
+    await this.router.navigateByUrl('/login');
+  }
+
+  async logoutSubmit() {
+    let alert = await this.alertController.create({
+      header: 'Alerta',
+      message: `¿Está seguro que desea cerrar sesión?`,
+      buttons: [
+        {
+          text: 'Si',
+          handler: async () => {
+            await this.logout();
+          },
+        },
+        {
+          text: 'No',
+        },
+      ],
+    });
+    await alert.present();
   }
 }
