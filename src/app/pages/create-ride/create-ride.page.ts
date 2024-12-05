@@ -131,9 +131,4 @@ export class CreateRidePage implements OnInit {
     await this.rideService.createRide(inputRide);
     return this.router.navigateByUrl('/home');
   }
-
-  async checkData() {
-    const rideFromStorage = await this.storageService.get(RIDES_KEY);
-    console.log(rideFromStorage);
-  }
 }
