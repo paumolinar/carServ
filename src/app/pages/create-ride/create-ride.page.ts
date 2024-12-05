@@ -106,7 +106,7 @@ export class CreateRidePage implements OnInit {
     ) {
       console.log('Invalid input');
       let alert = await this.alertController.create({
-        header: 'Mensaje',
+        header: 'Viaje incompleto',
         message: `Hay uno o más campos vacío/s. Por favor rellene todos los campos solicitados.`,
         buttons: [
           {
